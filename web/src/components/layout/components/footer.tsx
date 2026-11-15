@@ -22,6 +22,8 @@ import { useTranslation } from 'react-i18next'
 
 import { useStatus } from '@/hooks/use-status'
 import { useSystemConfig } from '@/hooks/use-system-config'
+import { DEFAULT_LOGO, DEFAULT_SYSTEM_NAME } from '@/lib/constants'
+import { getDocsLink } from '@/lib/site-url'
 import { cn } from '@/lib/utils'
 
 interface FooterLink {
@@ -158,8 +160,10 @@ export function Footer(props: FooterProps) {
     demoSiteEnabled,
   } = useSystemConfig()
 
-  const displayLogo = systemLogo || props.logo || '/logo.png'
-  const displayName = systemName || props.name || 'New API'
+  const { status } = useStatus()
+  const docsLink = getDocsLink(status?.docs_link)
+  const displayLogo = systemLogo || props.logo || DEFAULT_LOGO
+  const displayName = systemName || props.name || DEFAULT_SYSTEM_NAME
   const isDemoSiteMode = Boolean(demoSiteEnabled)
   const currentYear = new Date().getFullYear()
 
@@ -170,15 +174,15 @@ export function Footer(props: FooterProps) {
         links: [
           {
             text: t('footer.columns.about.links.aboutProject'),
-            href: 'https://docs.newapi.pro/wiki/project-introduction/',
+            href: '/about',
           },
           {
             text: t('footer.columns.about.links.contact'),
-            href: 'https://docs.newapi.pro/support/community-interaction/',
+            href: docsLink,
           },
           {
             text: t('footer.columns.about.links.features'),
-            href: 'https://docs.newapi.pro/wiki/features-introduction/',
+            href: '/about',
           },
         ],
       },
@@ -187,15 +191,15 @@ export function Footer(props: FooterProps) {
         links: [
           {
             text: t('footer.columns.docs.links.quickStart'),
-            href: 'https://docs.newapi.pro/getting-started/',
+            href: docsLink,
           },
           {
-            text: t('footer.columns.docs.links.installation'),
-            href: 'https://docs.newapi.pro/installation/',
+            text: t('About'),
+            href: '/about',
           },
           {
             text: t('footer.columns.docs.links.apiDocs'),
-            href: 'https://docs.newapi.pro/api/',
+            href: docsLink,
           },
         ],
       },
@@ -217,7 +221,7 @@ export function Footer(props: FooterProps) {
         ],
       },
     ],
-    [t]
+    [t, docsLink]
   )
 
   const displayColumns = props.columns ?? fallbackColumns
@@ -265,21 +269,21 @@ export function Footer(props: FooterProps) {
               </span>
             </Link>
             <p className='text-muted-foreground/60 mt-3 max-w-[200px] text-xs leading-relaxed'>
-              {t('Powerful API Management Platform')}
+              {t('One API, many AI possibilities.')}
             </p>
           </div>
 
           {/* Links columns */}
           {isDemoSiteMode && (
             <div className='grid grid-cols-3 gap-8 md:gap-16'>
-              {displayColumns.map((column, index) => (
-                <div key={index}>
+              {displayColumns.map((column) => (
+                <div key={column.title}>
                   <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
                     {t(column.title)}
                   </p>
                   <ul className='space-y-2.5'>
-                    {column.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
+                    {column.links.map((link) => (
+                      <li key={`${link.href}:${link.text}`}>
                         <FooterLinkItem link={link} />
                       </li>
                     ))}

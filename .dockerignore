@@ -10,3 +10,5 @@ docs
 /web/node_modules
 /web/dist
 !THIRD-PARTY-LICENSES.md
+!PLATFORM_ABOUT.md
+!PLATFORM_HELP.md

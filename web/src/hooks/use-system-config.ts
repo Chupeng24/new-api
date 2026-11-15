@@ -60,8 +60,14 @@ function preloadImage(
 export function useSystemConfig(options: UseSystemConfigOptions = {}) {
   const { autoLoad = false } = options
   const queryClient = useQueryClient()
-  const { config, loading, loadedLogoUrl, setLoadedLogoUrl, setLoading } =
-    useSystemConfigStore()
+  const {
+    config,
+    loading,
+    loadedLogoUrl,
+    setLoadedLogoUrl,
+    setLoading,
+    setConfig,
+  } = useSystemConfigStore()
 
   // Load config from backend via the shared `/api/status` cache.
   // `ensureStatus` writes the mapped config into this store itself, so there is
@@ -100,13 +106,15 @@ export function useSystemConfig(options: UseSystemConfigOptions = {}) {
         if (logo !== DEFAULT_LOGO) {
           // eslint-disable-next-line no-console
           console.error('Failed to load logo:', logo)
+          setConfig({ logo: DEFAULT_LOGO })
+          applyFaviconToDom(DEFAULT_LOGO)
         }
         // Mark as loaded even on error to prevent infinite retry
         setLoadedLogoUrl(logo)
       }
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config.logo, loadedLogoUrl, setLoadedLogoUrl])
+  }, [config.logo, loadedLogoUrl, setLoadedLogoUrl, setConfig])
 
   return {
     ...config,

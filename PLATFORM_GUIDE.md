@@ -69,6 +69,7 @@ curl "$PLATFORM_BASE_URL/v1/chat/completions" \
 
 | 原需求 | 本次对应 | 状态 / 调整理由 |
 |---|---|---|
+| 新增：自有名称、Logo、关于与帮助文档 | `PLATFORM_BRANDING.md`、`PLATFORM_ABOUT.md`、`PLATFORM_HELP.md` | ModelFlow 默认品牌、SVG、关于页和 `/docs` 已实现；已有数据库按指南更新配置；验收见 `PLATFORM_BRANDING_VALIDATION.md` |
 | 统一登录、企业/高校/访客 | 原生账号 + platform identity 审核 | 新增人工机构审核；短信/学信网自动核验待采购授权接口 |
 | 预充值、统一 Credits | 原生 Wallet、CUSTOM 展示、本文配置 | 复用；兑换率由财务配置，不硬编码冲突口径 |
 | 2–3 家 LLM、独立定价与折扣 | Channels / Models / Groups | 原生支持；实际 API 密钥与采购区域未提供，尚未真实联通验收 |

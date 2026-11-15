@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/ui/button'
 import { useStatus } from '@/hooks/use-status'
+import { getDocsLink } from '@/lib/site-url'
 
 import { HeroTerminalDemo } from '../hero-terminal-demo'
 
@@ -48,8 +49,7 @@ const MoreIcon = () => (
 export function Hero(props: HeroProps) {
   const { t } = useTranslation()
   const { status } = useStatus()
-  const docsUrl =
-    (status?.docs_link as string | undefined) || 'https://docs.newapi.pro'
+  const docsUrl = getDocsLink(status?.docs_link)
 
   const renderDocsButton = () => {
     const isExternal = docsUrl.startsWith('http')
@@ -180,7 +180,7 @@ export function Hero(props: HeroProps) {
               </span>
               <p className='text-muted-foreground/60 text-xs leading-relaxed'>
                 {t(
-                  'Supports one-click configuration and perfectly adapts to NewAPI multi-protocol configuration.'
+                  'One-click setup for compatible AI clients.'
                 )}
               </p>
             </div>

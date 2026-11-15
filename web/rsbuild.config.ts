@@ -64,7 +64,7 @@ export default defineConfig(({ envMode }) => {
     },
     html: {
       template: './index.html',
-      favicon: './public/favicon.ico',
+      favicon: './public/branding/modelflow.svg',
     },
     server: {
       host: '0.0.0.0',
@@ -89,6 +89,11 @@ export default defineConfig(({ envMode }) => {
     },
     tools: {
       rspack: {
+        module: {
+          rules: [
+            { test: /\.md$/, resourceQuery: /raw/, type: 'asset/source' },
+          ],
+        },
         plugins: [
           tanstackRouter({
             target: 'react',
