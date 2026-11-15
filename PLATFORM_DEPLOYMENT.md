@@ -2,6 +2,18 @@
 
 验证日期：2026-11-15（北京时间）。
 
+## 当前运维方式
+
+2026-11-16 用户确认采用：**本机 Codex 开发和执行任务，通过 Workbench CLI 操作杭州服务器**。
+
+- 本机工作目录：`D:\Develop\new api\platform`。
+- 远程项目目录：`/opt/modelflow/source`；部署文件与数据位于 `/opt/modelflow`。
+- 使用已有 Workbench 配置连接目标实例，执行状态检查、部署、日志查看和必要的文件传输。
+- 不以服务器上的 Codex 联网调用作为开发或发布的前提，不新增服务器。
+- 服务器上已安装的 Codex 和登录缓存保留；后续不自动重试其模型请求。
+
+网络排查结果：系统 DNS 解析 `chatgpt.com` 为 `128.242.240.117`，IPv4 连接超时；IPv6 无可用路由。`auth.openai.com` 的 TCP/TLS 能连接，但返回 HTTP 403；npm 官方仓库 HTTPS 正常。`hosts` 没有 OpenAI 相关覆盖，公共 DNS 对照请求也未成功，因此没有擅自修改 DNS 或硬编码地址。中国大陆不在当前 ChatGPT 官方支持地区列表中：https://help.openai.com/zh-hans-cn/articles/7947663-chatgpt-supported-countries
+
 ## 访问与版本
 
 - 访问地址：https://47.97.245.4
