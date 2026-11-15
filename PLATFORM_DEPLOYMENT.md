@@ -92,7 +92,8 @@ IP 证书期限短，应保持 80 端口和续期定时器可用。以后绑定�
 - 刷新 Cookie 启用 Secure、HttpOnly、SameSite=Strict。
 - 应用容器健康检查通过；证书续期演练通过。
 - 本次部署没有配置上游模型渠道、支付或邮件服务；其实际调用需提供相应服务配置后验证。
-- Codex CLI 0.169.0 已安装，但 `codex login --device-auth` 返回 `403 Forbidden`，`codex login status` 显示未登录。ChatGPT 认证尚未完成，未改用 API Key。
+- Codex CLI 0.169.0 已安装。设备授权接口仍返回 `403 Forbidden`；已按 OpenAI 官方无界面服务器流程，将本机现有 ChatGPT 登录缓存加密迁移至服务器 `/root/.codex/auth.json`（权限 0600）。`codex login status` 已显示 `Logged in using ChatGPT`，未改用 API Key，一次性传输私钥及加密凭据副本已清理。
+- Codex 实际模型调用尚未通过：服务器访问 `chatgpt.com:443` 连接超时，模型列表请求也超时。本次验证进程已结束；需要解决服务器到 ChatGPT 官方服务的网络可达性后再验证，不能将本地登录状态视为模型服务已可用。官方迁移流程：https://learn.chatgpt.com/docs/auth#fallback-authenticate-locally-and-copy-your-auth-cache
 - 当前 Workbench 凭据无法查询安全组（`Forbidden.RAM`）；443 入站规则由用户在控制台放行，之后公网验证通过。
 
 品牌更换方法见 `PLATFORM_BRANDING.md`，功能规划见 `PLATFORM_PLAN.md`。
