@@ -75,6 +75,11 @@ export function useSidebarData(badges: SidebarBadges = {}): SidebarData {
         title: t('General'),
         items: [
           {
+            title: t('Industry workspace'),
+            url: '/workspace',
+            icon: Workflow,
+          },
+          {
             title: t('Overview'),
             url: '/dashboard/overview',
             icon: Activity,

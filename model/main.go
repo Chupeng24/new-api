@@ -340,6 +340,10 @@ func migrateDB() error {
 	}
 
 	err := DB.AutoMigrate(
+		&PlatformIdentity{},
+		&PlatformInvoice{},
+		&PlatformReview{},
+		&PlatformReportAccess{},
 		&Channel{},
 		&Token{},
 		&User{},

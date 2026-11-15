@@ -222,6 +222,12 @@ export function BillingHistoryDialog({
                             )}
                           </div>
                           <div className='text-muted-foreground text-xs'>
+                            <StatusBadge
+                              label={`${t('Top-up order ID')}: ${record.id}`}
+                              variant='neutral'
+                              size='sm'
+                              copyText={String(record.id)}
+                            />
                             {formatTimestamp(record.create_time)}
                           </div>
                         </div>
