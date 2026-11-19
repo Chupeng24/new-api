@@ -49,6 +49,25 @@
 
 每次 `exec` 都是独立 Shell，目录切换不会保留到下次调用。不要输出 Workbench 配置中的密钥。
 
+## Xshell 连接（2026-11-20 已验证）
+
+服务器当前关闭密码认证，root 密码处于锁定状态，允许公钥认证。网站的 `admin` 账号不能用于 SSH。
+
+已为用户配置独立 RSA-4096 SSH 密钥，并通过严格校验服务器主机公钥的直接 SSH 连接验证成功；原有三把授权公钥保留，没有重启服务或修改密码。
+
+在 Xshell 新建 SSH 会话：
+
+1. 主机 `47.97.245.4`，端口 `22`。
+2. 用户名 `root`，认证方法选择 `Public Key`。
+3. 在“设置 → 用户密钥 → 浏览/导入”中选择本机私钥 `D:\Develop\new api\.tools\modelflow-private\modelflow-xshell-root-rsa.pem`。
+4. 选择导入的密钥，密钥密码（Passphrase）留空，保存并连接。
+
+该私钥未设置口令，文件位于限制了 Windows 访问权限的目录中，不应提交到 Git 或分享给他人。公钥注释为 `modelflow-xshell-user`，授权位置为服务器 `/root/.ssh/authorized_keys`。原授权文件备份为 `/root/.ssh/authorized_keys.before-modelflow-xshell-1795115429430040240`。
+
+首次连接时可核对服务器 ED25519 主机密钥指纹：`SHA256:gNLw0X9ujskARqHn+4SOWTbeBkj7jvGHwl418FC5iWo`。
+
+以上是用户直接使用 Xshell 的连接方式；本机 Codex 的运维仍可使用 Workbench。
+
 ## 运行方式
 
 - `modelflow-app`：镜像 `modelflow:02a2cda`，以 UID/GID `10001:10001` 运行。
